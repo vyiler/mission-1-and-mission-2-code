@@ -6,8 +6,8 @@
 const scrollToTopBtn = document.querySelector("#back-to-top");
 const daysCounter = document.querySelector("#release-date-counter");
 
-const mainImages = document.getElementsByClassName("#grid-item");
-const imageText = document.getElementsByClassName("#image-text");
+const mainImages = document.getElementsByClassName("grid-item");
+const imageText = document.getElementsByClassName("image-text");
 
 const searchButton = document.querySelector("#searchBar");
 
@@ -42,44 +42,63 @@ function scrollToTop() {
 }
 scrollToTopBtn.addEventListener("click",scrollToTop)
 
-// search feature
 
+// search feature
 function myFunction() {
     let input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("userInput");
     filter = input.value.toUpperCase();
-    ul = document.getElementById("searchList");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
+    ul = document.getElementById("searchUl"); 
+    li = ul.getElementsByTagName("li"); // 'li' gets all <li> elements in the 'ul'. 
+    for (i = 0; i < li.length; i++) { // 'for' loop to iterate over each 'li' item.
+        a = li[i].getElementsByTagName("a")[0]; // 'a' retrieves the first <a> element inside the current <li> item.
+        txtValue = a.textContent || a.innerText; // txtValue to store the content of the <a> element. uses 'textContent' if available, otherwise, it falls back to 'innerText' - textContent > innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) { // 'indexOf' to check if the 'filter' (user input) is in 'txtValue'
+            li[i].style.display = ""; // if 'filter' > -1 then it returns "" e.g. the list item
         } else {
-            li[i].style.display = "none";
+            li[i].style.display = "none"; // if 'filter' isnt > -1 then it returns "none" e.g. hides the list item
         }
     }
 }
+
+
+// entry prompt
 const userResponse = "Yes"
 console.log(userResponse);
 const userResponse2 = ["Cleric Beast","Father Gascoigne","Bloodstarved Beast","Vicar Amelia","The Witch of Hemwick","Darkbeast Paarl","Shadow of Yharnam","Rom, the Vacuous Spider","Amygdala","One Reborn","Micolash, Host of the Nightmare","Mergo's Wet Nurse","Gehrman, the First Hunter","Moon Presence"]
 console.log(userResponse2);
 
-
-const alertInput = prompt("Have you played Bloodborne?").toLocaleLowerCase();
-const result = userResponse.includes(alertInput);
+// this code didnt work?? copied Joseph's version of the code and it ran correctly
+// const alertInput = prompt("Have you played Bloodborne?").toLowerCase();
+// const result = userResponse.toLowerCase().includes(alertInput);
+// console.log(result);
+// if (result) {
+//     const alertInput2 = prompt("Thats great! What was your favorite boss?");
+//     const result2 = userResponse2.includes(alertInput2);
+//     console.log(result2);
+//     if(result2) {
+//         alert("Nice! Mine was Gehrman, the First Hunter.")
+//     } else {
+//         alert("I must have missed that boss.")
+//     }
+// } else {
+//     alert("If you enjoy a challenge, maybe you should.")
+// }
+const alertInput = prompt("Have you played Bloodborne?").toLowerCase();
+const result = userResponse.toLowerCase().includes(alertInput);
 console.log(result);
 if (result) {
-    const alertInput2 = prompt("Thats great! What was your favorite boss?");
-    const result2 = userResponse2.includes(alertInput2);
-    console.log(result2);
-    if(result2) {
-        alert("Nice! Mine was Gehrman, the First Hunter.")
-    } else {
-        alert("I must have missed that boss.")
-    }
+  const alertInput2 = prompt("Thats great! What was your favorite boss?").toLowerCase();
+  const userResponse2Lower = userResponse2.map(boss => boss.toLowerCase()) // array cant use .toLowerCase - use .map(example => example.toLowerCase()) instead. 
+  const result2 = userResponse2Lower.includes(alertInput2);
+  console.log(result2);
+  if (result2) {
+    alert("Nice! Mine was Gehrman, the First Hunter.");
+  } else {
+    alert("I must have missed that boss.");
+  }
 } else {
-    alert("If you enjoy a challenge, maybe you should.")
+  alert("If you enjoy a challenge, maybe you should.");
 }
 
 
